@@ -64,14 +64,23 @@ bool Matrix::equal(Matrix* other)
 
 Matrix* Matrix::add(Matrix* other)
 {
-	Matrix* myMatrix = new Matrix(3,2); 
-	return myMatrix; 
+	Matrix* toReturn = new Matrix(this->height, this->width);
+	for(int i = this->width * this->height - 1; i >= 0; i--)
+	{
+		toReturn->innerArr[i] = this->innerArr[i] + other->innerArr[i];
+	} 
+	return toReturn; 
 }
 
 Matrix* Matrix::subtract(Matrix* other)
 {
-	Matrix* myMatrix = new Matrix(3,2);
-	return myMatrix; 
+	
+	Matrix* toReturn = new Matrix(this->height,this->width);
+	for(int i = this->height * this-> width - 1; i >= 0; i--)
+	{
+		toReturn->innerArr[i] = this->innerArr[i] - other->innerArr[i]; 
+	}
+	return toReturn; 
 }
 
 Matrix* Matrix::multiply(Matrix* other)
@@ -87,12 +96,16 @@ Matrix* Matrix::multiply(Matrix* other)
 				sum = 0; 
 				for(int k = 0; k < this->width; k++)
 				{
-					sum += other->getElement(k,j) * this->getElement(i,k);
+					sum += other->getElement(k + 1,j + 1) * this->getElement(i + 1,k + 1);
+					//cout << other->getElement(k,j) << endl; 
 				}
-				toReturn->setElement(i,j, sum);		
+				//cout << sum << endl; 
+				toReturn->setElement(i + 1,j + 1, sum);		
 			}
 		}
 		//cout << "Here ins multiply" << endl;
+
+		//toReturn->print(); 
 		return toReturn;
 	}  
 }
